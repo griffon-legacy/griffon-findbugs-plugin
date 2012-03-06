@@ -1,5 +1,5 @@
 /*
- * Copyright 2010 the original author or authors.
+ * Copyright 2010-2012 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the 'License');
  * you may not use this file except in compliance with the License.
@@ -18,18 +18,63 @@
  * @author Andres Almiray
  */
 class FindbugsGriffonPlugin {
-    def version = 0.2
-    def dependsOn = [:]
-    def griffonVersion = '0.9 > *'
-    def license = 'Apache Software License 2.0'
+    // the plugin version
+    String version = '0.3'
+    // the version or versions of Griffon the plugin is designed for
+    String griffonVersion = '0.9.5 > *'
+    // the other plugins this plugin depends on
+    Map dependsOn = [:]
+    // resources that are included in plugin packaging
+    List pluginIncludes = []
+    // the plugin license
+    String license = 'Apache Software License 2.0'
+    // Toolkit compatibility. No value means compatible with all
+    // Valid values are: swing, javafx, swt, pivot, gtk
+    List toolkits = []
+    // Platform compatibility. No value means compatible with all
+    // Valid values are:
+    // linux, linux64, windows, windows64, macosx, macosx64, solaris
+    List platforms = []
+    // URL where documentation can be found
+    String documentation = ''
+    // URL where source can be found
+    String source = 'https://github.com/griffon/griffon-findbugs-plugin'
 
-    def author = 'Andres Almiray'
-    def authorEmail = 'aalmiray@users.sourceforge.net'
-    def title = 'FindBugs plugin'
-    def description = '''
-Runs FindBugs code analysis
+    List authors = [
+            [
+                    name: 'Andres Almiray',
+                    email: 'aalmiray@yahoo.com'
+            ]
+    ]
+    String title = 'Enables Spock for testing Griffon projects'
+    // accepts Markdown syntax. See http://daringfireball.net/projects/markdown/ for details
+    String description = '''
+Runs FindBugs on your Java and Groovy code.
+
+Usage
+-----
+
+Just execute the `findbugs` command target.
+
+Configuration
+-------------
+
+The plugin requires no customization to run. However you can configure all options available to the [FindBugs Ant Task][2].
+Place all configurations in `griffon-app/conf/BuildConfig.groovy` under the _findbugs_ prefix.
+
+The plugin will automatically register all common source paths (`src/main` and `griffon-app/*`) however if you require additional
+paths (for example those exposed by the [lang-bridge][3] plugin) then make sure to set the following configuration property in 
+`BuildConfig.groovy`
+
+        findbugs.additionalSources = ['src/common']
+
+Scripts
+-------
+
+ * **findbugs** - runs Findbugs on the application's source'
+
+[1]: http://findbugs.sourceforge.net/
+[2]: http://findbugs.sourceforge.net/manual/anttask.html
+[3]: /plugin/lang-bridge
 '''
-
-    // URL to the plugin's documentation
-    def documentation = 'http://griffon.codehaus.org/Findbugs+Plugin'
 }
